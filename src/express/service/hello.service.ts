@@ -1,4 +1,4 @@
-import HelloRepository from "./hello.repository";
+import HelloRepository from "../repository/hello.repository";
 
 class HelloService {
     private _helloRepository: HelloRepository;

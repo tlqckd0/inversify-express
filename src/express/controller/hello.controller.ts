@@ -1,11 +1,12 @@
-
 import { Router } from "express";
-import HelloService from "./hello.service";
+import HelloService from "../service/hello.service";
+import {Controller} from "./controller"
 
-class HelloController {
+class HelloController implements Controller{
     private _helloService: HelloService;
     private _router: Router;
     private _path : any;
+
     constructor(helloService: HelloService, path : String) {
         this._helloService = helloService;
         this._router = Router();

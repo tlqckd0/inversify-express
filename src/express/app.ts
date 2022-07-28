@@ -14,15 +14,7 @@ class ExpressApp {
         this._app.use(express.json());
         this._app.use(express.urlencoded());
     }
-
-
-    loadRouter(): void {
-        this._app.get('/', (req: Request, res: Response, next: NextFunction) => {
-            res.send('hello ts-express');
-        })
-
-    }
-
+    
     registRouter(): void {
         this._controllers.forEach((controller) => {
             this._app.use(controller.initRouter());
