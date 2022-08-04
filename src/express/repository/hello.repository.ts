@@ -1,23 +1,28 @@
-class HelloRepository {
-    private _database: Map<Number, String>; //나중에 DB pool이나 connection을 받아오면 될것.
+import { inject, injectable } from "inversify";
+import "reflect-metadata";
+import { TYPES } from "../inversify/types";
 
-    constructor(database: Map<Number, String>) {
-        this._database = database;
+@injectable()
+class HelloRepository {
+    private dataSource: Map<Number, String>; //나중에 DB pool이나 connection을 받아오면 될것.
+
+    constructor(@inject(TYPES.DataSource) dataSource: Map<Number, String>) {
+        this.dataSource = dataSource;
     }
-    
+
     save(id: Number, name: String): Boolean {
-        if(this._database.has(id)){
+        if (this.dataSource.has(id)) {
             console.log(`id : ${id} exist`);
             return false;
         }
-        this._database.set(id, name);
+        this.dataSource.set(id, name);
         console.log(`save id : ${id}`);
-        return true;    
+        return true;
     }
 
     find(id: Number): String | Boolean {
-        let name: String | undefined = this._database.get(id);
-        console.log(id,name);
+        let name: String | undefined = this.dataSource.get(id);
+        console.log(id, name);
         if (name === undefined) {
             return false;
         }
@@ -25,18 +30,18 @@ class HelloRepository {
     }
 
     delete(id: Number): Boolean {
-        if(!this._database.has(id)){
+        if (!this.dataSource.has(id)) {
             console.log(`id : ${id} exist`);
             return false;
         }
-        this._database.delete(id);
+        this.dataSource.delete(id);
         console.log(`delete id : ${id}`);
-        return true;   
+        return true;
     }
 
     update(id: Number, name: String): Boolean {
-        if (this._database.has(id)) {
-            this._database.set(id, name);
+        if (this.dataSource.has(id)) {
+            this.dataSource.set(id, name);
             console.log(`save id : ${id}`);
             return true;
         } else {
@@ -46,4 +51,4 @@ class HelloRepository {
     }
 }
 
-export default HelloRepository;
+export { HelloRepository };

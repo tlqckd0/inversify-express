@@ -5,14 +5,13 @@ import { TYPES } from "./types";
 class Point {
     x: Number;
     y: Number;
-    constructor() {
-        this.x = 10;
-        this.y = 10;
+    constructor(x: Number, y: Number) {
+        this.x = x;
+        this.y = y;
     }
     getX(): Number {
         return this.x;
     }
-
     getY(): Number {
         return this.y;
     }

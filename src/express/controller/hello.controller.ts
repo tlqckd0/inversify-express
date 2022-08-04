@@ -1,16 +1,21 @@
 import { Router } from "express";
-import HelloService from "../service/hello.service";
-import {Controller} from "./controller"
+import { inject, injectable } from "inversify";
+import { TYPES } from "../inversify/types";
+import { HelloService } from "../service/hello.service";
+import { Controller } from "./controller"
+import "reflect-metadata";
 
-class HelloController implements Controller{
+@injectable()
+class HelloController implements Controller {
     private _helloService: HelloService;
     private _router: Router;
-    private _path : any;
+    private _path = "/user";
 
-    constructor(helloService: HelloService, path : String) {
+    constructor(
+        @inject(TYPES.HelloService) helloService: HelloService
+    ) {
         this._helloService = helloService;
         this._router = Router();
-        this._path = path;
         this.addListener();
     }
 
@@ -25,7 +30,7 @@ class HelloController implements Controller{
                 const { id } = req.params;
                 const name = this._helloService.find_info(Number(id));
 
-                const result = { success: false, data : new Object() };
+                const result = { success: false, data: new Object() };
                 if (name !== false) {
                     result.success = true;
                     result.data = name;
@@ -64,5 +69,5 @@ class HelloController implements Controller{
     }
 }
 
-export default HelloController;
+export { HelloController };
 

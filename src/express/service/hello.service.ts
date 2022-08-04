@@ -1,8 +1,14 @@
-import HelloRepository from "../repository/hello.repository";
+import { inject, injectable } from "inversify";
+import { TYPES } from "../inversify/types";
+import { HelloRepository } from "../repository/hello.repository";
+import "reflect-metadata";
 
+@injectable()
 class HelloService {
     private _helloRepository: HelloRepository;
-    constructor(repository: any) {
+    constructor(
+        @inject(TYPES.HelloRepository) repository: any
+    ) {
         this._helloRepository = repository;
     }
 
@@ -23,4 +29,4 @@ class HelloService {
     }
 }
 
-export default HelloService;
+export { HelloService };

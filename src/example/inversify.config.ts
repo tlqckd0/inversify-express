@@ -9,7 +9,7 @@ myContainer.bind<Warrior>(TYPES.Warrior).to(Ninja);
 myContainer.bind<Weapon>(TYPES.Weapon).to(Katana);
 myContainer.bind<ThrowableWeapon>(TYPES.ThrowableWeapon).to(Shuriken);
 
-myContainer.bind<Point>(TYPES.Point).to(Point);
+myContainer.bind<Point>(TYPES.Point).toConstantValue(new Point(10,11));
 myContainer.bind<Circle>(TYPES.Circle).to(Circle);
 
 export { myContainer };
